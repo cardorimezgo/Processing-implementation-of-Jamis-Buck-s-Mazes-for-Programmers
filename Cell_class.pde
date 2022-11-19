@@ -74,4 +74,25 @@ class Cell
     }
     return n;
   }
+
+  void distances()
+  {
+    Distances distances = new Distances(this);
+    List <Cell> frontier = new ArrayList<Cell>(); //cell(s) that are next to the root
+    frontier.add(this); //First frontier, start = 0
+
+    while (!frontier.isEmpty())
+    {
+      List <Cell> new_frontier = new ArrayList <Cell> ();
+      for(Cell c : frontier)
+      {
+          for(Cell c_linked : c.links()) // set of connected cells to frontier
+          {
+             if ()  //has the cell been visited?
+             //new_frontier.add(c_linked);
+          }
+      }
+      
+    }
+  }
 }          
