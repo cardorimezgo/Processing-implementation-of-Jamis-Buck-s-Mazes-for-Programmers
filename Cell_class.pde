@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.*; //<>// //<>//
 
 class Cell
 {
@@ -28,7 +28,7 @@ class Cell
   }
 
   Set<Cell> links() //Querying list of all cells connected to this cell
-  {  
+  {     
     return links.keySet();
   }
 
@@ -73,5 +73,41 @@ class Cell
       }
     }
     return n;
+  }
+
+
+  void distances() //distance between root cell and rest of cells in HashMap
+  {
+    Distances distances = new Distances(this);
+    //HashMap frontier = distances.cells;
+
+    List <Cell> frontier = new ArrayList<Cell>(); //cell(s) that are next to the root
+    frontier.add(this); //First frontier, start = 0
+
+    while (!frontier.isEmpty())
+    {
+      List <Cell> new_frontier = new ArrayList <Cell> ();
+      for (Cell c : frontier)
+      { 
+        //println(c);
+        for (Cell c_linked : c.links()) // set of connected cells to frontier
+        {
+          
+          println(c_linked);
+          /*if (distances.get_dist(c_linked) == 0)  // CHECK has the cell been visited?
+          {
+            distances.set_dist(c_linked, +1);
+            new_frontier.add(c_linked);
+          }*/
+        }
+        //frontier = new_frontier;
+      }
+    }
+  }
+
+  @Override
+    String toString()
+  {
+    return "("+row+","+col+")"+neighbors.keySet();
   }
 }          
