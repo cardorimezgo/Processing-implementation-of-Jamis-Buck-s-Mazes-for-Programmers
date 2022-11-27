@@ -1,4 +1,4 @@
-import java.util.*; //<>// //<>//
+import java.util.*; 
 
 class Cell
 {
@@ -76,33 +76,31 @@ class Cell
   }
 
 
-  void distances() //distance between root cell and rest of cells in HashMap
+  Distances distances() //distance between root cell and rest of cells in HashMap
   {
     Distances distances = new Distances(this);
-    //HashMap frontier = distances.cells;
-
-    List <Cell> frontier = new ArrayList<Cell>(); //cell(s) that are next to the root
+    Set <Cell> frontier = new HashSet(); //cell(s) that are next to the root
     frontier.add(this); //First frontier, start = 0
 
     while (!frontier.isEmpty())
     {
-      List <Cell> new_frontier = new ArrayList <Cell> ();
+      Set <Cell> new_frontier = new HashSet();
       for (Cell c : frontier)
       { 
-        //println(c);
         for (Cell c_linked : c.links()) // set of connected cells to frontier
         {
-          
-          println(c_linked);
-          /*if (distances.get_dist(c_linked) == 0)  // CHECK has the cell been visited?
+          if (distances.isKnown(c_linked))  // CHECK has the cell been visited?
           {
-            distances.set_dist(c_linked, +1);
-            new_frontier.add(c_linked);
-          }*/
+            continue;
+          }
+          distances.add_d(c_linked, distances.get_dist(c) + 1);
+          new_frontier.add(c_linked);
         }
-        //frontier = new_frontier;
       }
+      frontier = new_frontier;
+      println(distances.cells);
     }
+    return distances;
   }
 
   @Override
