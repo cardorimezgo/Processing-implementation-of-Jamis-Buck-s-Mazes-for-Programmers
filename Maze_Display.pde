@@ -19,8 +19,8 @@ void setup()
   fill(0, 0, 0);
   textFont(f);
 
-  //bt.On(g); // Binary Tree Maze
-  sw.On(g); //Sidewinder Maze
+  bt.On(g); // Binary Tree Maze
+  //sw.On(g); //Sidewinder Maze
   display_Maze();
 }
 
@@ -31,13 +31,14 @@ void draw()
 
 void display_Maze()
 {
-  Cell root = g.visit_each_cell(0,0); // Cell (0,0) as start of maze
+  Cell root = g.visit_cell(0,0); // Cell (0,0) as start of maze
+  Cell goal = g.visit_cell(g.rows - 1 , g.cols - 1); // maze's End/Goal 
   for (int r = 0; r < g.rows; r++)
   {
     for (int c = 0; c < g.cols; c++)
     {  
-      Cell cell = g.visit_each_cell(r, c);
-
+      Cell cell = g.visit_cell(r, c);
+      
       float x1 = cent + (cell.row * cell_size); 
       float y1 = cent + (cell.col * cell_size);
       float x2 = cent + ((cell.row + 1) * cell_size);
@@ -59,7 +60,11 @@ void display_Maze()
       {
         line(x1, y2, x2, y2);
       }
-      text(root.distances().cells.get(cell),(x1+x2)/2, (y1+y2)/2); //draw Dijkstra's distance numbers
+      //text(root.distances().cells.get(cell), (x1+x2)/2 , (y1+y2)/2); //draw Dijkstra's distance numbers
+      if(root.distances().path_to(goal).cells.get(cell) != null )
+      {
+        //text(root.distances().path_to(goal).cells.get(cell), (x1+x2)/2 , (y1+y2)/2); //shortest path
+      }
     }
   }
   
