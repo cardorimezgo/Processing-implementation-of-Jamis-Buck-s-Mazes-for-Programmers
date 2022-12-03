@@ -51,21 +51,41 @@ class Distances
   {
     Cell current = goal;
     Distances breadcrumbs = new Distances(root);
-    breadcrumbs.cells.put(current , cells.get(current));
-    
-    while(current != root)
+    breadcrumbs.cells.put(current, cells.get(current));
+
+    while (current != root)
     {
-      for(Cell neighbor : current.links())
+      for (Cell neighbor : current.links())
       {
-        if(cells.get(neighbor) < cells.get(current))
+        if (cells.get(neighbor) < cells.get(current))
         {
-          breadcrumbs.cells.put(neighbor , cells.get(neighbor));
+          breadcrumbs.cells.put(neighbor, cells.get(neighbor));
           current = neighbor;
         }
       }
     }
     return breadcrumbs;
   }
+
+  HashMap max_dist()
+  {
+    int max_dist = 0;
+    Cell max_cell = root;
+    HashMap <Cell, Integer> long_path = new HashMap(); 
+    
+    for (Cell cell : cells.keySet())
+    {
+      if (cells.get(cell) > max_dist)
+      {
+         max_cell = cell;
+         max_dist = cells.get(cell);
+         long_path.put(max_cell , max_dist);
+      }
+    }
+    return long_path;
+  }
+
+
 
   @Override
     String toString()
