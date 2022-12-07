@@ -1,4 +1,3 @@
-// Reference: https://github.com/verhagen/mazes-for-programmers/blob/1310dd9659a984175c4d4db1eaaec179d0479078/src/main/java/com/github/verhagen/mazes4p/core/Grid.java#L22
 import java.util.*;
 
 class Grid
@@ -63,7 +62,7 @@ class Grid
   }
   
   
-  Cell visit_each_cell(int r , int c)
+  Cell visit_cell(int r , int c)
   {
     Cell cell = matrix[r][c];
     return cell;
