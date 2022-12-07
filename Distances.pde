@@ -66,26 +66,23 @@ class Distances
     }
     return breadcrumbs;
   }
-
-  HashMap max_dist()
+  
+  Cell max_dist()
   {
     int max_dist = 0;
     Cell max_cell = root;
-    HashMap <Cell, Integer> long_path = new HashMap(); 
-    
-    for (Cell cell : cells.keySet())
+    HashMap <Cell , Integer> ph = new HashMap();
+    for(Cell cell : cells.keySet())
     {
-      if (cells.get(cell) > max_dist)
+      if(cells.get(cell) > max_dist)
       {
-         max_cell = cell;
-         max_dist = cells.get(cell);
-         long_path.put(max_cell , max_dist);
+        max_cell = cell;
+        max_dist = cells.get(cell);
+        ph.put(max_cell , max_dist);
       }
     }
-    return long_path;
+    return max_cell;
   }
-
-
 
   @Override
     String toString()
