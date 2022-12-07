@@ -1,24 +1,23 @@
-int maze_l = 8;
-int maze_w = 8;
+int maze_l = 20;
+int maze_w = 20;
 int cell_size= 50;
-float cent = width / 0.5;
+float cent = width;
 PFont f;
-Grid g = new Grid(maze_l, maze_w);
 
+Grid g = new Grid(maze_l, maze_w);
 BinaryTree bt= new BinaryTree();
 Sidewinder sw= new Sidewinder();
 
-
 void setup()
 {
-  size(800, 800); 
+  size(1200, 1200); 
   background(255, 255, 255);
   strokeWeight(7); //maze line thickness
 
   f = createFont("Arial", 20, true);  
   fill(0, 0, 0);
   textFont(f);
-
+  
   bt.On(g); // Binary Tree Maze
   //sw.On(g); //Sidewinder Maze
   display_Maze();
@@ -26,19 +25,18 @@ void setup()
 
 void draw()
 {
-  
 }
 
 void display_Maze()
 {
-  Cell root = g.visit_cell(0,0); // Cell (0,0) as start of maze
-  Cell goal = g.visit_cell(g.rows - 1 , g.cols - 1); // maze's End/Goal 
+  Cell root = g.visit_cell(0, 0); // Cell (0,0) as start of maze
+  Cell goal = g.visit_cell(g.rows - 1, g.cols - 1); // maze's End/Goal 
   for (int r = 0; r < g.rows; r++)
   {
     for (int c = 0; c < g.cols; c++)
     {  
       Cell cell = g.visit_cell(r, c);
-      
+
       float x1 = cent + (cell.row * cell_size); 
       float y1 = cent + (cell.col * cell_size);
       float x2 = cent + ((cell.row + 1) * cell_size);
@@ -60,12 +58,23 @@ void display_Maze()
       {
         line(x1, y2, x2, y2);
       }
-      //text(root.distances().cells.get(cell), (x1+x2)/2 , (y1+y2)/2); //draw Dijkstra's distance numbers
-      if(root.distances().path_to(goal).cells.get(cell) != null )
-      {
-        //text(root.distances().path_to(goal).cells.get(cell), (x1+x2)/2 , (y1+y2)/2); //shortest path
-      }
+      /*
+      //Dijkstra's distance numbers
+      text(root.distances().cells.get(cell), (x1+x2)/2 , (y1+y2)/2); 
+      
+      //Shortest Path
+      Integer dist_to_goal = root.distances().path_to(goal).cells.get(cell);
+      if(dist_to_goal != null )
+       {
+         text(dist_to_goal, (x1+x2)/2 , (y1+y2)/2); //shortest path
+       }
+       */
+       //Longest Path
+       Integer longest_path = root.distances().path_to(root.distances().max_dist()).cells.get(cell);
+       if(longest_path != null )
+       {
+         text(longest_path, (x1+x2)/2 , (y1+y2)/2); //longest path
+       }
     }
   }
-  
 }
