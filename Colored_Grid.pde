@@ -1,16 +1,14 @@
 class Colored_Grid extends Grid
 {
-  
+   
   Colored_Grid(int _rows, int _cols)
   {
     super(_rows, _cols);
-    
   }
 
   void display_Maze()
   {
-    Dijkstra d= new Dijkstra();  
-
+    Dijkstra d = new Dijkstra(); 
     for (int r = 0; r < g.rows; r++)
     {
       for (int c = 0; c < g.cols; c++)
@@ -21,11 +19,25 @@ class Colored_Grid extends Grid
         float y1 = cent + (cell.col * cell_size);
         
         int dist = d.distance(cell);        
-        fill(dist*4  , dist*5 , dist*2);
-        
-        rect(x1, y1, cell_size, cell_size);stroke(0);
+        fill(dist*4  , dist*5 , dist*2, 150);
+        rect(x1, y1, cell_size, cell_size);
       }
     }
+  }
+  
+  void color_flood()
+  {
+    Cell root = g.visit_cell(0 , 0);
+    HashMap dist = root.distances().cells;
+    //Convert Hashmap to MapSet
+    //Sort values from HashMap
+    //for(Map.Entry<Cell, Integer> entry : dist.entrySet())    
+    for (Object val : dist.keySet())
+    {     
+      println(val.values());
+      
+    }
+      
   }
   
 }
