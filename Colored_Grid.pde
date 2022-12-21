@@ -14,13 +14,18 @@ class Colored_Grid extends Grid
     
     for (int i = 0; i < count; i++)
     {
+      if(count > dist_sorted.size())
+      {
+        break;
+      }
       Map.Entry map_d = (Map.Entry)dist_itera.next();
       int val = (int)map_d.getValue();
       Cell cell = (Cell)map_d.getKey();
       float x_coord = cent + (cell.row * cell_size);
       float y_coord = cent + (cell.col * cell_size);
-
-      fill(val*2, val*3, val*2);
+      
+      strokeWeight(0);
+      fill(val*4, val*2, val*2, 5);
       rect(x_coord, y_coord, cell_size, cell_size);
     }
   }
