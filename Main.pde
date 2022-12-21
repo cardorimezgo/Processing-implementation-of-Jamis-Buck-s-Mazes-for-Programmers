@@ -1,32 +1,29 @@
-int maze_l = 20;
-int maze_w = 20;
-int cell_size= 50;
+int maze_l = 100;
+int maze_w = 100;
+int cell_size= 5;
 float cent = width;
+int count = 0;
 
 Grid g = new Grid(maze_l, maze_w);
-BinaryTree bt= new BinaryTree();
-Sidewinder sw= new Sidewinder();
+BinaryTree bt = new BinaryTree();
+Sidewinder sw = new Sidewinder();
+Colored_Grid cg = new Colored_Grid(maze_l, maze_w);
 
 void setup()
 {
   size(1200, 1200); 
   background(255, 255, 255);
-  strokeWeight(7); //maze line thickness
-
-  //bt.On(g); // Binary Tree Maze
-  sw.On(g); //Sidewinder Maze
-  text_style();
+  /// Algo ////
+  bt.On(g); // Binary Tree Maze
+  //sw.On(g); //Sidewinder Maze
+  ////////////
   //g.display_Maze();
+  //cg.color_flood();
 }
-
+// TEST: we can also change the distribution in space of each cell or size
 void draw()
 {
-}
-
-void text_style()
-{
-  PFont f;
-  f = createFont("Arial", 20, true);  
-  fill(0, 0, 0);
-  textFont(f);
+  cg.color_flood(count);
+  count= count + 5;
+  
 }
