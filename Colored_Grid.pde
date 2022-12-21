@@ -5,22 +5,22 @@ class Colored_Grid extends Grid
     super(_rows, _cols);
   }
 
-  void color_flood()
+  void color_flood(int count)
   {
     Cell root = g.visit_cell(0, 0);
     HashMap dist = root.distances().cells;
     HashMap dist_sorted = sortByValue(dist);
     Iterator dist_itera = dist_sorted.entrySet().iterator();
     
-    while (dist_itera.hasNext()) //one rect at a time!!!!
+    for (int i = 0; i < count; i++)
     {
       Map.Entry map_d = (Map.Entry)dist_itera.next();
       int val = (int)map_d.getValue();
       Cell cell = (Cell)map_d.getKey();
       float x_coord = cent + (cell.row * cell_size);
       float y_coord = cent + (cell.col * cell_size);
-      
-      fill(val*4 , val*5, val*2);
+
+      fill(val*2, val*3, val*2);
       rect(x_coord, y_coord, cell_size, cell_size);
     }
   }
