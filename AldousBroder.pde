@@ -19,19 +19,14 @@ class AldousBroder
     
     while(unvisited > 0)
     {
-      
-      //Direction rand_d = Direction.to(rand_int);
       List<Cell> neighbors = cell.get_neighbors(dirs);
       int rand_int = rand.nextInt(neighbors.size());
       Cell neighbor = neighbors.get(rand_int);
       
-      //Cell neighbor = cell.get_neighbor(rand_d);
-      //println(neighbors+"----"+rand_d+" "+cell+"___"+cell.get_neighbor(rand_d));
-      if(!cell.linked(neighbor))
-      //if (cell.get_neighbor(rand_d) != null && !cell.linked(neighbor))
+      if(neighbor.links().isEmpty())
       {
         cell.link(neighbor);
-        unvisited--;      
+        unvisited--;
       }
       cell = neighbor;
     }
