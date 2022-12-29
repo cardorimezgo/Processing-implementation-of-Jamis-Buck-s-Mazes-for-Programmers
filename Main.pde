@@ -5,8 +5,11 @@ float cent = width;
 int count = 0;
 
 Grid g = new Grid(maze_l, maze_w);
+
 BinaryTree bt = new BinaryTree();
 Sidewinder sw = new Sidewinder();
+AldousBroder ab = new AldousBroder();
+
 Colored_Grid cg = new Colored_Grid(maze_l, maze_w);
 
 void setup()
@@ -14,13 +17,14 @@ void setup()
   size(800, 800); 
   background(255, 255, 255);
   /// Algo ////
-  bt.On(g); // Binary Tree Maze
+  //bt.On(g); // Binary Tree Maze
   //sw.On(g); //Sidewinder Maze
+  ab.On(g); // AldousBroder Maze
   ////////////
   g.display_Maze();
   
 }
-// TEST: we can also change the distribution in space of each cell or size
+// TEST: we can also change the distribution in space or size of each cell 
 void draw()
 {
   cg.color_flood(count);
