@@ -1,3 +1,16 @@
+// 1 clean upper row
+// 2 move to next row
+// continue carving east until randomly stop and randomly choose 
+// one of the cells you already carved through(run set) and carve
+// a passage north
+// 3 clear the run set
+// continue moving east until you have to move to the next row
+// (!)Improtant condition is that if you are at the extreme north
+// or at the extreme east and you have to carve, if you are north
+// your only option will be to carve north as we did in step (1), 
+// if you are at the extre cell at east your only option is to carve north
+///////////////////////////////////////////////////////////////////////////
+
 class Sidewinder
 {
   void On(Grid grid)
@@ -11,8 +24,8 @@ class Sidewinder
     {
       for (int r = 0; r < grid.rows; r++)
       {          
-        Cell cell = grid.visit_each_cell(r, c);
-        run.add(grid.visit_each_cell(r, c));
+        Cell cell = grid.visit_cell(r, c);
+        run.add(grid.visit_cell(r, c));
         boolean east_bound =  r == (grid.rows - 1);
         boolean north_bound = c == 0;
         boolean close = east_bound || (! north_bound && random.nextInt(2) == 0);
@@ -39,14 +52,3 @@ class Sidewinder
     }
   }
 }
-//TODO: (1)clean upper row
-// (2)move to next row
-// continue carving east until randomly stop and randomly choose 
-// one of the cells you already carved through(run set) and carve
-// a passage north
-// (3)clear the run set
-// continue moving east until you have to move to the next row
-// (!)Improtant condition is that if you are at the extreme north
-// or at the extreme east and you have to carve, if you are north
-// your only option will be to carve north as we did in step (1), 
-// if you are at the extre cell at east your only option is to carve north
