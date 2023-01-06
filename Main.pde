@@ -9,6 +9,7 @@ Grid g = new Grid(maze_l, maze_w);
 BinaryTree bt = new BinaryTree();
 Sidewinder sw = new Sidewinder();
 AldousBroder ab = new AldousBroder();
+Wilson w = new Wilson();
 
 Colored_Grid cg = new Colored_Grid(maze_l, maze_w);
 
@@ -19,7 +20,8 @@ void setup()
   /// Algo ////
   //bt.On(g); // Binary Tree Maze
   //sw.On(g); //Sidewinder Maze
-  ab.On(g); // AldousBroder Maze
+  //ab.On(g); // AldousBroder Maze
+  w.On(g); // Wilson's Maze
   ////////////
   g.display_Maze();
   
@@ -28,5 +30,5 @@ void setup()
 void draw()
 {
   cg.color_flood(count);
-  count= count + 5;
+  count= count + 10;
 }
