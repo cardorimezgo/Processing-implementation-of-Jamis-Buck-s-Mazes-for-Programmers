@@ -10,13 +10,12 @@
 
 class Wilson
 {
-
   void On(Grid g)
   {
     //grid config
     g.create_grid();
     g.config_cells();   
-  
+
     ///creation of first visited cell & path initialiation
     Cell start_cell = g.random_cell();
     HashMap<Cell, Boolean> visited = new HashMap();
@@ -26,18 +25,18 @@ class Wilson
     //univisited cell, creation of neighbor
     Cell current_cell = g.random_cell();
     Cell neighbor = get_ran_nebr(current_cell);
-    
+
     while (visited.size() <  g.g_size())
-    {
-      if (!is_visited(visited , neighbor) && !loop_path(path , neighbor)) //continue
+    { 
+      if (!is_visited(visited, neighbor) && !loop_path(path, neighbor)) //continue
       {
         path.add(neighbor);
         current_cell = neighbor;
         neighbor = get_ran_nebr(current_cell);
-        
       } else if (is_visited(visited, neighbor) && !loop_path(path, neighbor)) //finish loop
-      {
-        for (int i = 0; i < path.size(); i++)
+      { 
+        path.add(neighbor);
+        for (int i = 0; i < path.size() - 1; i++)
         {
           visited.put(path.get(i), true);
           path.get(i).link(path.get(i+1));
@@ -45,9 +44,8 @@ class Wilson
         current_cell = g.random_cell();
         neighbor = get_ran_nebr(current_cell);
         path.clear();
-        
       } else if ((!is_visited(visited, neighbor) && loop_path(path, neighbor)) || 
-                  (is_visited(visited, neighbor) && loop_path(path, neighbor))) //clear loop & restart
+        (is_visited(visited, neighbor) && loop_path(path, neighbor))) //clear loop & restart
       {
         current_cell = path.get(0); // TEST WITH FIRST NUMS 
         neighbor = get_ran_nebr(current_cell);
@@ -55,7 +53,7 @@ class Wilson
       }
     }
   }
-  
+
   Cell get_ran_nebr(Cell c)
   {
     Random rand = new Random();
@@ -63,17 +61,24 @@ class Wilson
     List <Cell> neighbors = c.get_neighbors(dirs);
     int rand_int = rand.nextInt(neighbors.size());
     Cell neighbor = neighbors.get(rand_int);
-    
+
     return neighbor;
   }
 
   /// check for match with visited cells
-  boolean is_visited(HashMap _visited, Cell _neighbor)
+  boolean is_visited(HashMap _visited, Cell _neighbor) 
   {
-    if (_visited.get(_neighbor) == null);
-    {    
-      return false;
+    Iterator visited_itera = _visited.entrySet().iterator();
+    for (int i = 0; i < _visited.size(); i++)
+    {
+      Map.Entry map_d = (Map.Entry)visited_itera.next();
+      Cell cell = (Cell)map_d.getKey();
+      if (cell == _neighbor)
+      {
+        return true;
+      }
     }
+    return false;
   }
 
   boolean loop_path(List<Cell> _path, Cell _neighbor)
