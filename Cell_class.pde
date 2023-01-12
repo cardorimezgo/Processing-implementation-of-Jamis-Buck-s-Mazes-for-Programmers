@@ -74,7 +74,23 @@ class Cell
     }
     return n;
   }
-
+  
+  List<Cell> linked_ran_neighbor(Cell cell)
+  {
+    Direction[] dirs = new Direction[]{Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.NORTH};
+    List<Cell> neighbors = new ArrayList<Cell>();
+    List<Cell> connected_neighbors = new ArrayList<Cell>();
+    neighbors = cell.get_neighbors(dirs);
+    
+    for (int i = 0; i < neighbors.size(); i++)
+    {
+      if(!neighbors.get(i).links().isEmpty());
+      {
+        connected_neighbors.add(neighbors.get(i));
+      }
+    }
+    return connected_neighbors;
+  }
 
   Distances distances() //distance between root cell and rest of cells in HashMap
   {
@@ -89,16 +105,15 @@ class Cell
       { 
         for (Cell c_linked : c.links()) // set of connected cells to frontier
         {
-          if (distances.isKnown(c_linked))  // CHECK has the cell been visited?
+          if (distances.isKnown(c_linked))  // has the cell been visited?
           {
             continue;
           }
-          distances.add_d(c_linked, distances.get_dist(c) + 1);
+          distances.add_d(c_linked, distances.get_dist(c) + 1); 
           new_frontier.add(c_linked);
         }
       }
       frontier = new_frontier;
-      println(distances.cells);
     }
     return distances;
   }
