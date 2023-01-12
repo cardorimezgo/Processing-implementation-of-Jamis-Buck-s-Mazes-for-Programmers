@@ -12,31 +12,40 @@ class Hunt_and_Kill
 {
   void On(Grid g)
   {
-    Cell start_cell = g.random_cell();
     //List<Cell> visited = new ArrayList<Cell>();
+    Cell start_cell = g.random_cell();
+    Cell neighbor = get_ran_nebr(start_cell); 
     int visited = 0;
+    Random ran = new Random();
     
     while (visited < g.g_size()) //hunt phase cannot find any more unvisited cells
-    {
-      Cell neighbor = get_ran_nebr(start_cell); 
-      if(neighbor.links().isEmpty())
+    {  
+      if (neighbor.links().isEmpty())
       {
         start_cell.link(neighbor);
+        start_cell = neighbor;
         visited++;
+      } else 
+      {
+        for (int r = 0; r < g.rows; r++)
+        {
+          for (int c = 0; c < g.cols; c++)
+          {
+            Cell cell = g.visit_cell(r, c);
+            if (cell.linked_ran_neighbor(cell).size() > 0 && cell.links().isEmpty())// neighbor linked current cell unlinked
+            {
+              int rand_int = ran.nextInt(cell.linked_ran_neighbor(cell).size());
+              Cell n = cell.linked_ran_neighbor(cell).get(rand_int);
+              cell.link(n);
+              ///////////// SUSTITUTE NEIGHBOR 
+              break;
+            }
+          }
+        }
       }
-      else if (!neighbor.links().isEmpty() && ) //search from left-upper corner for unvisted cell with at least one neighbor
-      cell = neighbor; ///think WE DOOOO NEED A VISITED LIST
-      
     }
-   
   }
-  //function for checking the occupation of neighboring cells
-  /*boolean free_nebrs()
-  {
-    
-  }
-  */
-  
+
   Cell get_ran_nebr(Cell c)
   {
     Random rand = new Random();
