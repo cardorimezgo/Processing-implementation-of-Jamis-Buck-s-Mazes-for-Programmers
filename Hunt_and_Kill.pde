@@ -18,81 +18,70 @@ class Hunt_and_Kill
 
     Cell current_cell = g.random_cell();
     List<Cell> visited = new ArrayList<Cell>();
-    //int visited = 0;
-    Random ran = new Random();
+    visited.add(current_cell);
 
-    while (visited.size() < g.g_size()) 
-    {
+    while (visited.size() < g.g_size()) //NUMBER OF VISITS EXCEEDS GRID SIZE  
+    { 
       Cell neighbor = get_ran_nebr(current_cell);
-      for (int i = 0; i < visited.size(); i++)
-      { 
-        if (visited.get(i)!= neighbor)
-        {
-        current_cell.link(neighbor);
-        current_cell = neighbor;
-        }
-        else{break;}
-      }  
-       ///PODRIA NEIGHBOR YA ESTAR VISITADO PERO OTRO DE LOS NEIGHBORS NO ESTAR VISITADO
-       /// TENDRIAMOS QUE CHECAR QUE LOS 4 PUNTOS CARDINALES ESTAN OCUPADOS
-        for (int r = 0; r < g.rows; r++) //hunt phase cannot find any more unvisited cells
+      if (check_nsew(current_cell, visited) == 4)
+      {
+        for (int r = 0; r < g.rows; r++) //hunt phase
         {
           for (int c = 0; c < g.cols; c++)
           {
             Cell cell = g.visit_cell(r, c);
-            if (cell.linked_ran_neighbor(cell).size() > 0 && cell.links().isEmpty())// neighbor linked current cell unlinked
+            if (check_nsew(cell, visited) > 0 )
             { 
-              int rand_int = ran.nextInt(cell.linked_ran_neighbor(cell).size());
-              Cell n = cell.linked_ran_neighbor(cell).get(rand_int);
+              Cell n = get_ran_nebr(cell);
               cell.link(n);
               current_cell = cell;
-              visited++;
+              visited.add(cell);
               break;
             }
           }
         }
-      
+      } else
+      {
+        for (int i = 0; i < visited.size(); i++)
+        { 
+          if (visited.get(i)!= neighbor)
+          {
+            current_cell.link(neighbor);
+            current_cell = neighbor;
+            visited.add(neighbor);
+          }
+        }
+      }
     }
-
-    /*
-    while (visited < g.g_size()) 
-     {
-     Cell neighbor = get_ran_nebr(current_cell);
-     if (neighbor.links().isEmpty())
-     { 
-     current_cell.link(neighbor);
-     current_cell = neighbor;
-     visited++;
-     } else 
-     { 
-     for (int r = 0; r < g.rows; r++) //hunt phase cannot find any more unvisited cells
-     {
-     for (int c = 0; c < g.cols; c++)
-     {
-     Cell cell = g.visit_cell(r , c);
-     if (cell.linked_ran_neighbor(cell).size() > 0 && cell.links().isEmpty())// neighbor linked current cell unlinked
-     { 
-     int rand_int = ran.nextInt(cell.linked_ran_neighbor(cell).size());
-     Cell n = cell.linked_ran_neighbor(cell).get(rand_int);
-     cell.link(n);
-     current_cell = cell;
-     visited++;
-     break;
-     }
-     }
-     }
-     }
-     }*/
   }
+}
 
-  Cell get_ran_nebr(Cell c)
+
+int check_nsew(Cell c, List <Cell> v)
+{
+  Direction[] dirs = new Direction[]{Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.NORTH};
+  List <Cell> nsew = c.get_neighbors(dirs);
+  List <Cell> visited = new ArrayList<Cell>();
+  for (int i = 0; i < nsew.size(); i++)
   {
-    Random rand = new Random();
-    Direction[] dirs = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST};
-    List <Cell> neighbors = c.get_neighbors(dirs);
-    int rand_int = rand.nextInt(neighbors.size());
-    Cell neighbor = neighbors.get(rand_int);
-
-    return neighbor;
+    for ( int j = 0; j < v.size(); j++)
+    {
+      if (nsew.get(i) == v.get(j))
+      {
+        visited.add(nsew.get(i));
+      }
+    }
   }
+  return visited.size();
+}
+
+Cell get_ran_nebr(Cell c)
+{
+  Random rand = new Random();
+  Direction[] dirs = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST};
+  List <Cell> neighbors = c.get_neighbors(dirs);
+  int rand_int = rand.nextInt(neighbors.size());
+  Cell neighbor = neighbors.get(rand_int);
+
+  return neighbor;
 }
