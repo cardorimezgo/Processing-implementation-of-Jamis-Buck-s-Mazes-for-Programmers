@@ -19,23 +19,27 @@ class Hunt_and_Kill
     Cell current_cell = g.random_cell();
     List<Cell> visited = new ArrayList<Cell>();
     visited.add(current_cell);
+    Random ran = new Random();
+    Cell neighbor = get_ran_nebr(current_cell);
 
-    while (visited.size() < g.g_size()) //NUMBER OF VISITS EXCEEDS GRID SIZE  
-    { 
-      Cell neighbor = get_ran_nebr(current_cell);
-      if (check_nsew(current_cell, visited) == 4)
+    while (visited.size() < g.g_size())  
+    { //println(visited.size());
+      println(check_nsew(current_cell, visited).size());
+      if (check_nsew(current_cell, visited).size() == 0) //all surrounding cells visited
       {
         for (int r = 0; r < g.rows; r++) //hunt phase
         {
           for (int c = 0; c < g.cols; c++)
           {
             Cell cell = g.visit_cell(r, c);
-            if (check_nsew(cell, visited) > 0 )
+            if (check_nsew(cell, visited).size() != 0 ) 
             { 
-              Cell n = get_ran_nebr(cell);
-              cell.link(n);
-              current_cell = cell;
               visited.add(cell);
+              int rand_int = ran.nextInt(check_nsew(cell, visited).size());
+              Cell n = check_nsew(cell, visited).get(rand_int); 
+              cell.link(n);
+              visited.add(n);
+              current_cell = n;
               break;
             }
           }
@@ -49,6 +53,8 @@ class Hunt_and_Kill
             current_cell.link(neighbor);
             current_cell = neighbor;
             visited.add(neighbor);
+            neighbor = get_ran_nebr(current_cell);
+            break;
           }
         }
       }
@@ -56,23 +62,29 @@ class Hunt_and_Kill
   }
 }
 
-
-int check_nsew(Cell c, List <Cell> v)
-{
+//check for not_visited neighbors 
+List<Cell> check_nsew(Cell c, List <Cell> v)
+{  
   Direction[] dirs = new Direction[]{Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.NORTH};
-  List <Cell> nsew = c.get_neighbors(dirs);
-  List <Cell> visited = new ArrayList<Cell>();
+  List <Cell> nsew = c.get_neighbors(dirs); 
+  List <Cell> not_visited = new ArrayList<Cell>(); 
+
   for (int i = 0; i < nsew.size(); i++)
-  {
+  { 
+    int cnt = 0;
     for ( int j = 0; j < v.size(); j++)
     {
-      if (nsew.get(i) == v.get(j))
+      if (nsew.get(i) != v.get(j))
       {
-        visited.add(nsew.get(i));
+        cnt++;
       }
     }
+    if (cnt == v.size())
+    {
+      not_visited.add(nsew.get(i));
+    }
   }
-  return visited.size();
+  return not_visited;
 }
 
 Cell get_ran_nebr(Cell c)
