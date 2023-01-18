@@ -23,38 +23,39 @@ class Hunt_and_Kill
     Cell neighbor = get_ran_nebr(current_cell);
 
     while (visited.size() < g.g_size())  
-    { //println(visited.size());
-      println(check_nsew(current_cell, visited).size());
-      if (check_nsew(current_cell, visited).size() == 0) //all surrounding cells visited
+    { 
+      println(visited.size());
+      if (check_nsew(current_cell, visited).size() > 0)
       {
+        int rand_int_neighbor = ran.nextInt(check_nsew(current_cell, visited).size());
+        neighbor = check_nsew(current_cell, visited).get(rand_int_neighbor);
+        current_cell.link(neighbor);
+        current_cell = neighbor;
+        visited.add(neighbor);
+      } else if (check_nsew(current_cell, visited).size() == 0) //all surrounding cells visited
+      { 
+        outerloop:
         for (int r = 0; r < g.rows; r++) //hunt phase
         {
           for (int c = 0; c < g.cols; c++)
           {
             Cell cell = g.visit_cell(r, c);
-            if (check_nsew(cell, visited).size() != 0 ) 
+            if (check_nsew(cell, visited).size() > 0)   
             { 
-              visited.add(cell);
-              int rand_int = ran.nextInt(check_nsew(cell, visited).size());
-              Cell n = check_nsew(cell, visited).get(rand_int); 
-              cell.link(n);
-              visited.add(n);
-              current_cell = n;
-              break;
+              int free_neighbors = check_nsew(cell, visited).size();
+              List <Cell> free_n = check_nsew(cell, visited);
+              for (int i = 0; i < free_neighbors; i++)
+              {
+                if (check_nsew(free_n.get(i), visited).size() < 4)
+                {
+                  visited.add(cell);
+                  cell.link(free_n.get(i));
+                  current_cell = free_n.get(i);
+                  visited.add(current_cell);
+                  break outerloop;
+                }
+              }
             }
-          }
-        }
-      } else
-      {
-        for (int i = 0; i < visited.size(); i++)
-        { 
-          if (visited.get(i)!= neighbor)
-          {
-            current_cell.link(neighbor);
-            current_cell = neighbor;
-            visited.add(neighbor);
-            neighbor = get_ran_nebr(current_cell);
-            break;
           }
         }
       }
@@ -62,7 +63,7 @@ class Hunt_and_Kill
   }
 }
 
-//check for not_visited neighbors 
+//list of not_visited neighbors 
 List<Cell> check_nsew(Cell c, List <Cell> v)
 {  
   Direction[] dirs = new Direction[]{Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.NORTH};
