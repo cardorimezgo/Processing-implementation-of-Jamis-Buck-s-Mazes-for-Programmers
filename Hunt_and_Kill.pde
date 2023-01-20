@@ -21,32 +21,32 @@ class Hunt_and_Kill
     visited.add(current_cell);
     Random ran = new Random();
     Cell neighbor = get_ran_nebr(current_cell);
-
+    
     while (visited.size() < g.g_size())  
     { 
-      println(visited.size());
-      if (check_nsew(current_cell, visited).size() > 0)
+      if (check_nsew(current_cell, visited).size() > 0) // is there at least one neighbor that's not visited
       {
         int rand_int_neighbor = ran.nextInt(check_nsew(current_cell, visited).size());
         neighbor = check_nsew(current_cell, visited).get(rand_int_neighbor);
         current_cell.link(neighbor);
         current_cell = neighbor;
-        visited.add(neighbor);
+        visited.add(current_cell);
       } else if (check_nsew(current_cell, visited).size() == 0) //all surrounding cells visited
       { 
         outerloop:
-        for (int r = 0; r < g.rows; r++) //hunt phase
+        for (int r = 0; r < g.rows; r++) //hunting time
         {
           for (int c = 0; c < g.cols; c++)
           {
-            Cell cell = g.visit_cell(r, c);
-            if (check_nsew(cell, visited).size() > 0)   
+            Cell cell = g.visit_cell(r, c); //ABAJO: check_nsew(cell, visited).size() > 0
+            println(cell.links().isEmpty());
+            if (cell.links().isEmpty()) //cell w/o neighbors  THE CELL SHOULD BE FREE!!! TRY IT SEARCHING FOR LINKED
             { 
               int free_neighbors = check_nsew(cell, visited).size();
               List <Cell> free_n = check_nsew(cell, visited);
               for (int i = 0; i < free_neighbors; i++)
               {
-                if (check_nsew(free_n.get(i), visited).size() < 4)
+                if (check_nsew(free_n.get(i), visited).size() < 4)//check_nsew(free_n.get(i), visited).size() >0  //checking  for at least neighbor with at least one visited neighbor 
                 {
                   visited.add(cell);
                   cell.link(free_n.get(i));
