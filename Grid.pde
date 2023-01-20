@@ -40,7 +40,7 @@ class Grid
     }
   }
 
-  Cell bound_cell(int r, int c) //North/East bounds
+  Cell bound_cell(int r, int c) //North-East bounds
   {
     if (r < 0 || r > rows - 1 || c < 0 || c > cols -1)
     {
@@ -67,11 +67,13 @@ class Grid
     Cell cell = matrix[r][c];
     return cell;
   }
-
-  void display_Maze(boolean _color)
+  
+  void display_Maze()
   {
     Dijkstra d= new Dijkstra();
-
+    strokeWeight(3); //maze line thickness
+    text_style();
+    
     for (int r = 0; r < g.rows; r++)
     {
       for (int c = 0; c < g.cols; c++)
@@ -83,12 +85,6 @@ class Grid
         float x2 = cent + ((cell.row + 1) * cell_size);
         float y2 = cent + ((cell.col + 1) * cell_size);
         
-        if (_color)
-        {
-          rect(x1, y1, cell_size, cell_size);
-        }
-        else
-        {
         if (cell.linked(Direction.NORTH) == false)
         {
           line(x1, y1, x2, y1);
@@ -106,16 +102,20 @@ class Grid
           line(x1, y2, x2, y2);
         }
         /// Dijkstra /////////////////////////////
-        //d.distance(cell, (x1+x2)/2, (y1+y2)/2);
-        //d.shortest_path(cell, (x1+x2)/2, (y1+y2)/2);
-        d.longest_path( cell, (x1+x2)/2, (y1+y2)/2);
+        //text(d.distance(cell) , (x1+x2)/2 , (y1+y2)/2);
+        //text(d.shortest_path(cell) , (x1+x2)/2, (y1+y2)/2);
+        //text(d.longest_path(cell) , (x1+x2)/2, (y1+y2)/2);
         //////////////////////////////////////////
         }
       }
     }
-  }
 
-  void background_color_for(Cell cell)
-  {
-  }
+void text_style()
+{
+  PFont f;
+  f = createFont("Arial", 15, true);  
+  fill(0, 0, 0);
+  textFont(f);
+}
+  
 }              
