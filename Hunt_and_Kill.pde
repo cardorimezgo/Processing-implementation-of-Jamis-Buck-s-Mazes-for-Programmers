@@ -1,4 +1,4 @@
-///1 - Pick random cell 
+///1 - Pick random cell  //<>// //<>// //<>// //<>// //<>//
 ///2 - perform random walk avoiding any cell that we've already visited
 ///3 - When end up surrounded by visited cell, (hunt phase)scan left to right from 
 //// - northwest corner until we encounter an unvisited cell, bordered by at least one
@@ -24,15 +24,14 @@ class Hunt_and_Kill
 
     while (visited.size() < g.g_size())  
     { 
-      println(visited.size());
-      if (check_nsew(current_cell, visited).size() > 0) // is there at least one neighbor that's not visited
+      if (not_visit_n(current_cell, visited).size() > 0) // is there at least one neighbor that's not visited
       {
-        int rand_int_neighbor = ran.nextInt(check_nsew(current_cell, visited).size());
-        neighbor = check_nsew(current_cell, visited).get(rand_int_neighbor);
+        int rand_int_neighbor = ran.nextInt(not_visit_n(current_cell, visited).size());
+        neighbor = not_visit_n(current_cell, visited).get(rand_int_neighbor);
         current_cell.link(neighbor);
         current_cell = neighbor;
         visited.add(current_cell);
-      } else if (check_nsew(current_cell, visited).size() == 0) //all surrounding cells visited
+      } else if (not_visit_n(current_cell, visited).size() == 0) //all surrounding cells visited
       { 
       outerloop:
         for (int r = 0; r < g.rows; r++) //hunting time
@@ -40,23 +39,21 @@ class Hunt_and_Kill
           for (int c = 0; c < g.cols; c++)
           {
             Cell cell = g.visit_cell(r, c); 
-            if (cell.links().isEmpty() && check_nsew2(cell, visited).size() != 0) 
+            if (cell.links().isEmpty() && visited_n(cell, visited).size() != 0) 
             { 
-              if (check_nsew(cell, visited).size() <= 0) //every neighbor is visited
+              if (not_visit_n(cell, visited).size() <= 0) //every neighbor is visited
               {
                 visited.add(cell);
                 cell.link(get_ran_nebr(cell));
                 current_cell = cell;
                 break outerloop;
-              }
-              else /// link to visited neighbor
+              } else /// link to visited neighbor
               {
-                int ran_visit = ran.nextInt(check_nsew2(cell, visited).size());
-                neighbor = check_nsew2(cell, visited).get(ran_visit);
+                int ran_visit = ran.nextInt(visited_n(cell, visited).size());
+                neighbor = visited_n(cell, visited).get(ran_visit);
                 visited.add(cell);
                 cell.link(neighbor);
-                current_cell = neighbor;
-                visited.add(current_cell);
+                current_cell = cell;
                 break outerloop;
               }
             }
@@ -68,7 +65,7 @@ class Hunt_and_Kill
 }
 
 //list of not_visited neighbors 
-List<Cell> check_nsew(Cell c, List <Cell> v)
+List<Cell> not_visit_n(Cell c, List <Cell> v)
 {  
   Direction[] dirs = new Direction[]{Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.NORTH};
   List <Cell> nsew = c.get_neighbors(dirs); 
@@ -92,7 +89,7 @@ List<Cell> check_nsew(Cell c, List <Cell> v)
   return not_visited;
 }
 
-List<Cell> check_nsew2(Cell c, List <Cell> v)
+List<Cell> visited_n(Cell c, List <Cell> v)
 {  
   Direction[] dirs = new Direction[]{Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.NORTH};
   List <Cell> nsew = c.get_neighbors(dirs); 
@@ -106,7 +103,7 @@ List<Cell> check_nsew2(Cell c, List <Cell> v)
       {
         visited.add(nsew.get(i));
       }
-    }    
+    }
   }
   return visited;
 }
