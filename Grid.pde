@@ -67,13 +67,13 @@ class Grid
     Cell cell = matrix[r][c];
     return cell;
   }
-  
+
   void display_Maze()
   {
     Dijkstra d= new Dijkstra();
     strokeWeight(3); //maze line thickness
     text_style();
-    
+
     for (int r = 0; r < g.rows; r++)
     {
       for (int c = 0; c < g.cols; c++)
@@ -84,7 +84,7 @@ class Grid
         float y1 = cent + (cell.col * cell_size);
         float x2 = cent + ((cell.row + 1) * cell_size);
         float y2 = cent + ((cell.col + 1) * cell_size);
-        
+
         if (cell.linked(Direction.NORTH) == false)
         {
           line(x1, y1, x2, y1);
@@ -106,16 +106,35 @@ class Grid
         //text(d.shortest_path(cell) , (x1+x2)/2, (y1+y2)/2);
         //text(d.longest_path(cell) , (x1+x2)/2, (y1+y2)/2);
         //////////////////////////////////////////
-        }
       }
     }
+  }
 
-void text_style()
-{
-  PFont f;
-  f = createFont("Arial", 15, true);  
-  fill(0, 0, 0);
-  textFont(f);
-}
-  
+  void text_style()
+  {
+    PFont f;
+    f = createFont("Arial", 15, true);  
+    fill(0, 0, 0);
+    textFont(f);
+  }
+  /*  
+   void dead_ends()
+   {
+   int cnt = 0;
+   for (int r = 0; r < g.rows; r++)
+   {
+   for (int c = 0; c < g.cols; c++)
+   {
+   Cell cell = g.matrix[r][c];
+   if (cell.links().size() == 1)
+   {
+   println(g.matrix[r][c]);
+   cnt++;
+   }
+   }
+   }
+   println(cnt);
+   }
+   */
 }              
+
