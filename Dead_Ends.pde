@@ -1,24 +1,24 @@
 // run each algo x num times
 // accumulate num of dead_ends per algo
 // report average of dead_ends 
-class dead_ends
+class Dead_Ends
 {
   void run ()
   {
     Maze_Algo maze_al =  new Maze_Algo();
+    List <Object> algos = maze_al.GetList();
     int runs = 3;
     
-    for (int i = 0; i < maze_al.algo_list().size(); i++)
+    for (int i = 0; i < maze_al.GetList().size(); i++)
     {
       int p_h_cnt = 0;
       for (int j = 0; j < runs; j++)
       {
-        //maze_al.bt.On(g);
-        //maze_al.algo_list().get(i).On(g);
+        algos.get(i).toString();
         p_h_cnt += dead_ends();
       }
       int avg = p_h_cnt / runs;
-      println("algo:"+""+maze_al.algo_list().get(i)+" "+"avg:"+""+avg);
+      println("algo:"+""+maze_al.GetList().get(i)+" "+"avg:"+""+avg);
     }
   }
   
