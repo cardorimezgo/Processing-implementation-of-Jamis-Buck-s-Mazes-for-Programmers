@@ -7,18 +7,19 @@ class Dead_Ends
   {
     Maze_Algo maze_al =  new Maze_Algo();
     List <Object> algos = maze_al.GetList();
+    BinaryTree bt = new BinaryTree();
     int runs = 3;
     
-    for (int i = 0; i < maze_al.GetList().size(); i++)
-    {
+    for (int i = 0; i < algos.size(); i++)
+    { 
       int p_h_cnt = 0;
       for (int j = 0; j < runs; j++)
       {
-        algos.get(i).toString();
+        algos.get(i); // NO SIRVE DE NADA
         p_h_cnt += dead_ends();
       }
       int avg = p_h_cnt / runs;
-      println("algo:"+""+maze_al.GetList().get(i)+" "+"avg:"+""+avg);
+      println("algo:"+""+algos.get(i)+" "+"avg:"+""+avg);
     }
   }
   
