@@ -1,8 +1,8 @@
-import processing.svg.*;
+import processing.svg.*; //<>//
 
-int maze_l = 60;
-int maze_w = 60;
-int cell_size= 10;
+int maze_l = 3;
+int maze_w = 3;
+int cell_size= 60;
 float cent = width;
 int count = 0;
 
@@ -15,23 +15,30 @@ Wilson w = new Wilson();
 Hunt_and_Kill hk = new Hunt_and_Kill();
 
 Colored_Grid cg = new Colored_Grid(maze_l, maze_w);
+//Dead_Ends dead = new Dead_Ends();
+Maze_Algo m_a = new Maze_Algo();
 
 void setup()
 {
   size(800, 800); 
   background(255, 255, 255);
   /// Algo ////
-  //bt.On(g); // Binary Tree Maze
-  //sw.On(g); //Sidewinder Maze
-  //ab.On(g); // AldousBroder Maze
-  //w.On(g); // Wilson's Maze
-  hk.On(g); // Hunt and kill Maze
+  //bt.On(); // Binary Tree Maze
+  //sw.On(); //Sidewinder Maze
+  //ab.On(); // AldousBroder Maze
+  //w.On(); // Wilson's Maze
+  //hk.On(); // Hunt and kill Maze
+  //dead.run();
+  
+  m_a.GetList().get(0); //calling all the elements in the list
+  println(m_a.GetList().size());
   ////////////
   g.display_Maze();
+
 }
-// TEST: we can also change the distribution in space or size of each cell 
+
 void draw()
 {
-  cg.color_flood(count);
+  //cg.color_flood(count);
   count= count + 10;
 }
