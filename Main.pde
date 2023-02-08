@@ -1,4 +1,5 @@
 import processing.svg.*; //<>//
+import java.lang.reflect.*;
 
 int maze_l = 3;
 int maze_w = 3;
@@ -30,8 +31,10 @@ void setup()
   //hk.On(); // Hunt and kill Maze
   //dead.run();
   
-  m_a.GetList().get(0); //calling all the elements in the list
-  println(m_a.GetList().size());
+  
+  List<Maze_Algo> methods = new ArrayList<>();
+  
+  
   ////////////
   g.display_Maze();
 
