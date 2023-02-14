@@ -1,9 +1,6 @@
-import processing.svg.*; //<>//
-import java.lang.reflect.*;
-
-int maze_l = 3;
-int maze_w = 3;
-int cell_size= 60;
+int maze_l = 60;
+int maze_w = 60;
+int cell_size= 10;
 float cent = width;
 int count = 0;
 
@@ -16,8 +13,7 @@ Wilson w = new Wilson();
 Hunt_and_Kill hk = new Hunt_and_Kill();
 
 Colored_Grid cg = new Colored_Grid(maze_l, maze_w);
-//Dead_Ends dead = new Dead_Ends();
-Maze_Algo m_a = new Maze_Algo();
+Dead_Ends dead = new Dead_Ends();
 
 void setup()
 {
@@ -29,15 +25,10 @@ void setup()
   //ab.On(); // AldousBroder Maze
   //w.On(); // Wilson's Maze
   //hk.On(); // Hunt and kill Maze
-  //dead.run();
-  
-  
-  List<Maze_Algo> methods = new ArrayList<>();
-  
-  
   ////////////
-  g.display_Maze();
-
+  
+  dead.run();
+  //g.display_Maze();
 }
 
 void draw()
