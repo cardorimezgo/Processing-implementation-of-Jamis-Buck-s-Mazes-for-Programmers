@@ -1,29 +1,38 @@
-// run each algo x num times
+// run each algo x num times //<>// //<>// //<>// //<>// //<>//
 // accumulate num of dead_ends per algo
 // report average of dead_ends 
+
 class Dead_Ends
 {
-  void run ()
+  BTrunner bt_runner = new BTrunner(bt); //concrete class 
+  ABrunner ab_runner = new ABrunner(ab); //concrete class 
+  SWrunner sw_runner = new SWrunner(sw); //concrete class  
+  Wrunner w_runner = new Wrunner(w); //concrete class 
+  HKrunner hk_runner = new HKrunner(hk); //concrete class 
+  Maze_Algo m_a = new Maze_Algo();  //invoker of command pattern
+  
+  double cien = 100;
+  double total_sq = maze_w * maze_l;
+  
+  void run (int runs)
   {
-    List <Cell[][]> a = new ArrayList <Cell[][]> ();
-    a.add(bt.On());
-    a.add(sw.On());
-    a.add(ab.On());
-    a.add(w.On());
-    a.add(hk.On());
+    m_a.addAlgo(bt_runner);
+    m_a.addAlgo(ab_runner);
+    m_a.addAlgo(sw_runner);
+    m_a.addAlgo(w_runner);
+    m_a.addAlgo(hk_runner);    
 
-    int runs = 3;
-
-    for (int i = 0; i < a.size(); i++)
+    for (int i = 0; i < m_a.listAlgo().size(); i++)
     { 
       int p_h_cnt = 0;
       for (int j = 0; j < runs; j++)
       {
-        Cell[][] current = a.get(i);
+        m_a.runAlgo(i);
         p_h_cnt += dead_ends();
       }
       int avg = p_h_cnt / runs;
-      println("algo:"+""+a.get(i)+" "+"avg:"+""+avg);
+      double percent = (avg) * (cien / total_sq);
+      println("algo:"+m_a.listAlgo().get(i)+" "+"avg:"+""+avg+" "+"percentage:"+percent+"%");
     }
   }
 
