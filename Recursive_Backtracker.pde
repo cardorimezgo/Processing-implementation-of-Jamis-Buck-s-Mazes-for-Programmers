@@ -11,26 +11,32 @@
 
 class Recursive_Backtracker
 {
-
   void On()
   {
     //grid config
     g.create_grid();
     g.config_cells();
-
-    List<Cell> stack = new ArrayList<Cell>();
-    stack.add(g.random_cell());
-    Cell current_cell = stack.get(stack.size()-1);
-    Random ran = new Random();
-    Cell neighbor = get_ran_nebr(current_cell);
+    Random rand = new Random();
     
-    while(stack.size() != 0)
+    List<Cell> stack = new ArrayList<Cell>();
+    List<Cell> visited = new ArrayList<Cell>();
+    Cell current_cell =  g.random_cell();
+    stack.add(current_cell);
+    visited.add(current_cell);
+
+    while (stack.size() != 0)
     {
-      not_visit_n(current_cell, stack);
-      
-      if (not_visit_n(current_cell, stack).size() == 0)//dead-end
-      {
-        current_cell = stack.get(stack.size()-2);
+      if (not_visit_n(current_cell, visited).size() == 0)//dead-end
+      { println(stack.size());
+        stack.remove(stack.size()-1); ///HOW AVOID STEPING OUT OF LIST
+        current_cell = stack.get(stack.size()-1);
+      } else {
+        int num_cell = rand.nextInt(not_visit_n(current_cell, visited).size());
+        Cell neighbor = not_visit_n(current_cell, visited).get(num_cell);
+        current_cell.link(neighbor);
+        current_cell = neighbor;
+        stack.add(current_cell);
+        visited.add(current_cell);
       }
     }
   }
