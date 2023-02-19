@@ -17,7 +17,7 @@ class Recursive_Backtracker
     g.create_grid();
     g.config_cells();
     Random rand = new Random();
-    
+
     List<Cell> stack = new ArrayList<Cell>();
     List<Cell> visited = new ArrayList<Cell>();
     Cell current_cell =  g.random_cell();
@@ -27,9 +27,15 @@ class Recursive_Backtracker
     while (stack.size() != 0)
     {
       if (not_visit_n(current_cell, visited).size() == 0)//dead-end
-      { println(stack.size());
-        stack.remove(stack.size()-1); ///HOW AVOID STEPING OUT OF LIST
-        current_cell = stack.get(stack.size()-1);
+      { 
+        if (stack.size() != 1)
+        {
+          stack.remove(stack.size()-1); 
+          current_cell = stack.get(stack.size()-1);
+        } else if (stack.size() == 1)
+        {
+          stack.clear();
+        }
       } else {
         int num_cell = rand.nextInt(not_visit_n(current_cell, visited).size());
         Cell neighbor = not_visit_n(current_cell, visited).get(num_cell);
