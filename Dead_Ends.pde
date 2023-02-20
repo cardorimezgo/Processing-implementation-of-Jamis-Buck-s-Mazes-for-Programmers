@@ -8,7 +8,8 @@ class Dead_Ends
   ABrunner ab_runner = new ABrunner(ab); //concrete class 
   SWrunner sw_runner = new SWrunner(sw); //concrete class  
   Wrunner w_runner = new Wrunner(w); //concrete class 
-  HKrunner hk_runner = new HKrunner(hk); //concrete class 
+  HKrunner hk_runner = new HKrunner(hk); //concrete class
+  RBrunner rb_runner = new RBrunner(rb); //concrete class
   Maze_Algo m_a = new Maze_Algo();  //invoker of command pattern
   
   double cien = 100;
@@ -20,7 +21,8 @@ class Dead_Ends
     m_a.addAlgo(ab_runner);
     m_a.addAlgo(sw_runner);
     m_a.addAlgo(w_runner);
-    m_a.addAlgo(hk_runner);    
+    m_a.addAlgo(hk_runner);
+    m_a.addAlgo(rb_runner);
 
     for (int i = 0; i < m_a.listAlgo().size(); i++)
     { 
