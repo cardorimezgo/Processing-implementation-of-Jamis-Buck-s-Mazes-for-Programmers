@@ -13,20 +13,20 @@
 
 class Sidewinder
 {
-  void On(Grid grid)
+  void On()
   {
-    grid.create_grid();
-    grid.config_cells();
+    g.create_grid();
+    g.config_cells();
 
     Random random = new Random(); 
     List <Cell> run = new ArrayList<Cell>(); 
-    for (int c = 0; c < grid.cols; c++)
+    for (int c = 0; c < g.cols; c++) //<>//
     {
-      for (int r = 0; r < grid.rows; r++)
+      for (int r = 0; r < g.rows; r++)
       {          
-        Cell cell = grid.visit_cell(r, c);
-        run.add(grid.visit_cell(r, c));
-        boolean east_bound =  r == (grid.rows - 1);
+        Cell cell = g.visit_cell(r, c);
+        run.add(g.visit_cell(r, c));
+        boolean east_bound =  r == (g.rows - 1);
         boolean north_bound = c == 0;
         boolean close = east_bound || (! north_bound && random.nextInt(2) == 0);
 

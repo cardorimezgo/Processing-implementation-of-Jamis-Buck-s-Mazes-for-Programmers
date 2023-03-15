@@ -1,3 +1,11 @@
+// 1 - Give a starting point
+// 2 - look at all of the unvisited neighbors to that cell
+// 3 - algorithm assigns same value to each neighbor cell or frontier 
+// 4 - algorithm moves to the frontier 
+// 5 - repeat step 3
+// repeat process until every cell in the maze has been visited
+//////////////////////////////////////////////////////////////////////
+
 class Distances
 {
   HashMap <Cell, Integer> cells;
@@ -66,19 +74,19 @@ class Distances
     }
     return breadcrumbs;
   }
-  
+
   Cell max_dist()
   {
     int max_dist = 0;
     Cell max_cell = root;
-    HashMap <Cell , Integer> ph = new HashMap();
-    for(Cell cell : cells.keySet())
+    HashMap <Cell, Integer> ph = new HashMap();
+    for (Cell cell : cells.keySet())
     {
-      if(cells.get(cell) > max_dist)
+      if (cells.get(cell) > max_dist)
       {
         max_cell = cell;
         max_dist = cells.get(cell);
-        ph.put(max_cell , max_dist);
+        ph.put(max_cell, max_dist);
       }
     }
     return max_cell;

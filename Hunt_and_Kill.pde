@@ -1,4 +1,4 @@
-///1 - Pick random cell  //<>// //<>// //<>// //<>// //<>//
+///1 - Pick random cell  //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 ///2 - perform random walk avoiding any cell that we've already visited
 ///3 - When end up surrounded by visited cell, (hunt phase)scan left to right from 
 //// - northwest corner until we encounter an unvisited cell, bordered by at least one
@@ -10,7 +10,7 @@
 
 class Hunt_and_Kill
 {
-  void On(Grid g)
+  void On()
   {
     //grid config
     g.create_grid();
@@ -22,7 +22,7 @@ class Hunt_and_Kill
     Random ran = new Random();
     Cell neighbor = get_ran_nebr(current_cell);
 
-    while (visited.size() < g.g_size())  
+    while (visited.size() < g.g_size())   //<>//
     { 
       if (not_visit_n(current_cell, visited).size() > 0) // is there at least one neighbor that's not visited
       {

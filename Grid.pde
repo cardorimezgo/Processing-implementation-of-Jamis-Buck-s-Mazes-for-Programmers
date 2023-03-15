@@ -117,24 +117,4 @@ class Grid
     fill(0, 0, 0);
     textFont(f);
   }
-  /*  
-   void dead_ends()
-   {
-   int cnt = 0;
-   for (int r = 0; r < g.rows; r++)
-   {
-   for (int c = 0; c < g.cols; c++)
-   {
-   Cell cell = g.matrix[r][c];
-   if (cell.links().size() == 1)
-   {
-   println(g.matrix[r][c]);
-   cnt++;
-   }
-   }
-   }
-   println(cnt);
-   }
-   */
 }              
-

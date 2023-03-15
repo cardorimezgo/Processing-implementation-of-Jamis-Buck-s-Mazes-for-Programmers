@@ -11,10 +11,14 @@ class Colored_Grid extends Grid
     HashMap dist = root.distances().cells;
     HashMap dist_sorted = sortByValue(dist);
     Iterator dist_itera = dist_sorted.entrySet().iterator();
-    
+    float bright = (maze_l * maze_w) + 100;
+    float red = 0.4;
+    float green = 0.4;
+    float blue = 0.2;
+
     for (int i = 0; i < count; i++)
     {
-      if(count > dist_sorted.size())
+      if (count > dist_sorted.size())
       {
         break;
       }
@@ -23,9 +27,9 @@ class Colored_Grid extends Grid
       Cell cell = (Cell)map_d.getKey();
       float x_coord = cent + (cell.row * cell_size);
       float y_coord = cent + (cell.col * cell_size);
-      
+
       strokeWeight(0);
-      fill(val*4, val*2, val*2, 5);
+      fill(bright/(val * red), bright/(val * green), bright/(val * blue)); //alpha, 10
       rect(x_coord, y_coord, cell_size, cell_size);
     }
   }

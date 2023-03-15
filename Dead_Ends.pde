@@ -1,4 +1,4 @@
-// run each algo x num times //<>// //<>// //<>// //<>// //<>//
+// run each algo x num times //<>// //<>// //<>// //<>// //<>// //<>//
 // accumulate num of dead_ends per algo
 // report average of dead_ends 
 

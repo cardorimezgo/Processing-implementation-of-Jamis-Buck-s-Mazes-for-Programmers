@@ -1,4 +1,4 @@
-/// - create stack (list) with push(add) and pop(remove) features
+/// - create stack (list) with push(add) and pop(remove) features //<>// //<>//
 ///1 - random start
 ///2 - push cell onto stack (cell at top of stack = current cell)
 ///3 - search for unvisited neighbors & choose one at random

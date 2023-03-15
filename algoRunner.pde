@@ -1,4 +1,4 @@
-public interface algoRunner 
+public interface AlgoRunner /// Command Interface for command pattern
 {
-  void run();
+  void execute();
 }

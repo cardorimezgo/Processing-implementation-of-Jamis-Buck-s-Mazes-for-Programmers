@@ -1,18 +1,19 @@
-class Maze_Algo
+public class Maze_Algo  /// invoker of command pattern
 {
-  private List<algoRunner> algoList = new ArrayList<algoRunner>();
-  
-  public void addAlgo(algoRunner a)
+  List<AlgoRunner> algoList = new ArrayList<AlgoRunner>();
+
+  public void addAlgo(AlgoRunner a)
   {
     algoList.add(a);
   }
-  
-  public void runAlgo()
+
+  List listAlgo()
   {
-    for(algoRunner a : algoList)
-    {
-      a.run();
-    }
-    algoList.clear();
+    return algoList;
+  }
+
+  public void runAlgo(int n)
+  {   
+    algoList.get(n).execute();
   }
 }

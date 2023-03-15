@@ -10,7 +10,7 @@
 
 class Wilson
 {
-  void On(Grid g)
+  Cell[][] On()
   {
     //grid config
     g.create_grid();
@@ -26,7 +26,7 @@ class Wilson
     Cell current_cell = g.random_cell();
     Cell neighbor = get_ran_nebr(current_cell);
 
-    while (visited.size() <  g.g_size())
+    while (visited.size() <  g.g_size()) //<>//
     { 
       if (!is_visited(visited, neighbor) && !loop_path(path, neighbor)) //continue
       {
@@ -51,20 +51,10 @@ class Wilson
         neighbor = get_ran_nebr(current_cell);
         path.clear();
       }
-    }
+    }println("w");
+    return g.matrix;
   }
-
-  Cell get_ran_nebr(Cell c)
-  {
-    Random rand = new Random();
-    Direction[] dirs = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST};
-    List <Cell> neighbors = c.get_neighbors(dirs);
-    int rand_int = rand.nextInt(neighbors.size());
-    Cell neighbor = neighbors.get(rand_int);
-
-    return neighbor;
-  }
-
+  
   /// check for match with visited cells
   boolean is_visited(HashMap _visited, Cell _neighbor) 
   {

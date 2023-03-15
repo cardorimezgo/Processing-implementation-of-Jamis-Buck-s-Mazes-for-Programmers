@@ -6,24 +6,24 @@
 
 class AldousBroder
 { 
-  
-  void On(Grid g)
+
+  void On()
   {
     g.create_grid();
     g.config_cells();
-    
+
     int unvisited = g.g_size() - 1;
     Random rand = new Random();
-    Direction[] dirs = new Direction[]{Direction.NORTH,Direction.SOUTH,Direction.EAST, Direction.WEST};
+    Direction[] dirs = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST};
     Cell cell = g.random_cell();
-    
-    while(unvisited > 0)
+
+    while (unvisited > 0) //<>//
     {
       List<Cell> neighbors = cell.get_neighbors(dirs);
       int rand_int = rand.nextInt(neighbors.size());
       Cell neighbor = neighbors.get(rand_int);
-      
-      if(neighbor.links().isEmpty())
+
+      if (neighbor.links().isEmpty())
       {
         cell.link(neighbor);
         unvisited--;
@@ -31,5 +31,4 @@ class AldousBroder
       cell = neighbor;
     }
   }
-  
 }
