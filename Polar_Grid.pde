@@ -1,11 +1,15 @@
-class Polar_Grid
+class Polar_Grid extends Grid
 {
+  Polar_Grid(int rows, int cols) {
+    super(cols, rows);
+  }
+
   void draw_t()
   {
     float cntr_x = width * (0.5);
     float cntr_y = height * (0.5);
 
-    int segmnt = 5;
+    int segmnt = 4;
     float theta = 360 / segmnt;
     float theta_rad = theta *(PI/180);
     float ring_height = 50;
@@ -25,16 +29,15 @@ class Polar_Grid
     float c_y = cntr_y + (inner_rad * sin(theta_rad * seg_num));
     float d_x = cntr_x + (outer_rad * cos(theta_rad * seg_num));
     float d_y = cntr_y + (outer_rad * sin(theta_rad * seg_num));
+
+    float start_angle = -theta_rad;
+    float end_angle = 0;
+
     line(a_x, a_y, b_x, b_y); //hypotenuse
     line(c_x, c_y, d_x, d_y); //adjacent side
 
-    float m = (c_y-cntr_y)/(c_x -cntr_x);
-    float b = c_y - (m*c_x);
-    float eq = (m*c_x) + b;
-
     noFill();
-    arc(cntr_x, cntr_y, a_x, cntr_y-a_y, 0, HALF_PI); //inner arc
-    point(cntr_x, cntr_y); //screen cntr
-    println(eq);
+    arc(cntr_x, cntr_y, inner_rad*2, inner_rad*2, start_angle, end_angle); //inner arc
+    arc(cntr_x, cntr_y, outer_rad*2, outer_rad*2, start_angle, end_angle); //inner arc
   }
 }
