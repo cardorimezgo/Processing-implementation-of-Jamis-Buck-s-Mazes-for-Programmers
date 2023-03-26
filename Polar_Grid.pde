@@ -10,22 +10,22 @@ class Polar_Grid extends Grid
     float cntr_x = width * (0.5);
     float cntr_y = height * (0.5);
 
-    int segmnt = 3 ;
+    int segmnt = 6;
     float theta = 360 / segmnt;
     float theta_rad = theta * (PI/180);
     float ring_len = 50;
     int maze_rad = (int)(cntr_x / ring_len); //maze radius
     int cell_row = 0; //num. of first drawn cell, from center -> outwards
+    int margin = 1;
     
-    for (int j = 0; j < 6 ; j ++) //Modify maze radius 
+    for (int j = 0; j < maze_rad - margin ; j ++) //Modify maze radius 
     {
-      //float update_rad = ring_len * (j + 1);
       for (int i = 0; i < segmnt; i++) // generate cells
       {
         float inner_rad = cell_row * ring_len;//short hypotenuse
         float outer_rad = (cell_row + 1) * ring_len; //long hypotenuse
 
-        // hypotenuse
+        // hypotenuse 
         float a_x = cntr_x + (inner_rad * cos(-theta_rad * (i + 1)));
         float a_y = cntr_y + (inner_rad * sin(-theta_rad * (i + 1)));
         float b_x = cntr_x + (outer_rad * cos(-theta_rad * (i + 1)));
@@ -45,8 +45,8 @@ class Polar_Grid extends Grid
         line(c_x, c_y, d_x, d_y); //adjacent side
 
         noFill();
-        arc(cntr_x, cntr_y, inner_rad * 2, inner_rad * 2, start_angle, end_angle); //inner arc
-        arc(cntr_x, cntr_y, outer_rad * 2, outer_rad * 2, start_angle, end_angle); //outer arc        
+        arc(cntr_x, cntr_y, inner_rad * 2, inner_rad * 2, start_angle, end_angle); //inner arc. inner and outer radius multiplied by 2, to get diameter
+        arc(cntr_x, cntr_y, outer_rad * 2, outer_rad * 2, start_angle, end_angle); //outer arc. inner and outer radius multiplied by 2, to get diameter        
       }
       cell_row++;
     }
