@@ -10,7 +10,7 @@ class Polar_Grid extends Grid
     float cntr_x = width * (0.5);
     float cntr_y = height * (0.5);
 
-    int segmnt = 6;
+    float segmnt = 7; // float instead of int to avoid floating-point rounding errors
     float theta = 360 / segmnt;
     float theta_rad = theta * (PI/180);
     float ring_len = 50;
